@@ -12,8 +12,7 @@ pub struct Iter<'a, T, I = ()> {
     pub(crate) _market: PhantomData<I>,
 }
 
-impl<'a, T, I> Iterator for Iter<'a, T, I>
-{
+impl<'a, T, I> Iterator for Iter<'a, T, I> {
     type Item = (Index<I>, &'a T);
 
     fn next(&mut self) -> Option<Self::Item> {

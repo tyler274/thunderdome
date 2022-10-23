@@ -3,14 +3,12 @@ use core::iter::{ExactSizeIterator, FusedIterator};
 use crate::arena::{Arena, Index};
 
 /// See [`Arena::drain`].
-pub struct Drain<'a, T, I = ()>
-{
+pub struct Drain<'a, T, I = ()> {
     pub(crate) arena: &'a mut Arena<T, I>,
     pub(crate) slot: u32,
 }
 
-impl<'a, T, I> Iterator for Drain<'a, T, I>
-{
+impl<'a, T, I> Iterator for Drain<'a, T, I> {
     type Item = (Index<I>, T);
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -48,8 +46,7 @@ impl<'a, T, I> Iterator for Drain<'a, T, I>
 impl<'a, T, I> FusedIterator for Drain<'a, T, I> {}
 impl<'a, T, I> ExactSizeIterator for Drain<'a, T, I> {}
 
-impl<'a, T, I> Drop for Drain<'a, T, I>
-{
+impl<'a, T, I> Drop for Drain<'a, T, I> {
     // Continue iterating/dropping if there are any elements left.
     fn drop(&mut self) {
         self.for_each(drop);

@@ -4,16 +4,14 @@ use core::slice;
 use crate::arena::{Entry, Index};
 
 /// See [`Arena::iter_mut`](crate::Arena::iter_mut).
-pub struct IterMut<'a, T, I = ()>
-{
+pub struct IterMut<'a, T, I = ()> {
     pub(crate) len: u32,
     pub(crate) slot: u32,
     pub(crate) inner: slice::IterMut<'a, Entry<T>>,
     pub(crate) _marker: core::marker::PhantomData<I>,
 }
 
-impl<'a, T, I> Iterator for IterMut<'a, T, I>
-{
+impl<'a, T, I> Iterator for IterMut<'a, T, I> {
     type Item = (Index<I>, &'a mut T);
 
     fn next(&mut self) -> Option<Self::Item> {
